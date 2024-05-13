@@ -5,7 +5,7 @@
 import { Link } from 'react-router-dom'
 import { Label } from "@/components/patientportal/label"
 import { Input } from "@/components/patientportal/input"
-import { Button } from "@/components/patientportal/button"
+import { Button } from "@/components/patientportal/searchbutton"
 import { CardContent, Card } from "@/components/patientportal/card"
 import Navbar from '../components/auth/Navbar'
 import DoctorImage1 from '../assets/doctor-1.jpg'
@@ -13,6 +13,8 @@ import DoctorImage2 from '../assets/doctor-2.jpg'
 import DoctorImage3 from '../assets/doctor-3.jpg'
 import DoctorImage4 from '../assets/doctor-4.jpg'
 import DoctorImage5 from '../assets/doctor-5.png'
+import Btn from '../components/patientportal/appointment-button.jsx'
+
 export default function patientsportal() {
   return (
     (<div className="flex flex-col min-h-[100dvh]">
@@ -56,7 +58,7 @@ export default function patientsportal() {
                   </p>
                   <div className="text-sm text-gray-500">Rating: 4.5/5</div>
                   <div className="text-sm text-gray-500">Experience: 10 years</div>
-                  <Button className="w-full bg-purple-600">Book Appointment</Button>
+                  <Btn/>
                 </CardContent>
               </Card>
               <Card>
@@ -79,7 +81,8 @@ export default function patientsportal() {
                   </p>
                   <div className="text-sm text-gray-500">Rating: 4.2/5</div>
                   <div className="text-sm text-gray-500">Experience: 8 years</div>
-                  <Button className="w-full bg-purple-600">Book Appointment</Button>
+                  <Btn/>
+               
                 </CardContent>
               </Card>
               <Card>
@@ -102,7 +105,7 @@ export default function patientsportal() {
                   </p>
                   <div className="text-sm text-gray-500">Rating: 4.8/5</div>
                   <div className="text-sm text-gray-500">Experience: 12 years</div>
-                  <Button className="w-full bg-purple-600">Book Appointment</Button>
+                  <Btn/>
                 </CardContent>
               </Card>
               <Card>
@@ -125,7 +128,7 @@ export default function patientsportal() {
                   </p>
                   <div className="text-sm text-gray-500">Rating: 4.8/5</div>
                   <div className="text-sm text-gray-500">Experience: 12 years</div>
-                  <Button className="w-full bg-purple-600">Book Appointment</Button>
+                  <Btn/>
                 </CardContent>
               </Card>
               <Card>
@@ -148,7 +151,7 @@ export default function patientsportal() {
                   </p>
                   <div className="text-sm text-gray-500">Rating: 4.8/5</div>
                   <div className="text-sm text-gray-500">Experience: 12 years</div>
-                  <Button className="w-full bg-purple-600">Book Appointment</Button>
+                  <Btn/>
                 </CardContent>
               </Card>
               <Card>
@@ -171,9 +174,10 @@ export default function patientsportal() {
                   </p>
                   <div className="text-sm text-gray-500">Rating: 4.8/5</div>
                   <div className="text-sm text-gray-500">Experience: 12 years</div>
-                  <Button className="w-full bg-purple-600">Book Appointment</Button>
+                  <Btn/>
                 </CardContent>
               </Card>
+              
             </div>
           </div>
         </section>
