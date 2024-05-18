@@ -5,156 +5,284 @@
 import { CardTitle, CardContent, CardHeader, CardDescription, Card } from "@/components/doctorsportal/card"
 import { Button } from "@/components/doctorsportal/button"
 import Navbar from '../components/auth/Navbar'
-import DoctorImage1 from '../assets/doctor-1.jpg'
-import PateintImage1 from '../assets/doctor-2.jpg'
-import PateintImage2 from '../assets/doctor-3.jpg'
-import PateintImage3 from '../assets/doctor-4.jpg'
-import PateintImage4 from '../assets/doctor-5.png'
+
+import { UserState } from "@/context/UserProvider"
+import { useEffect, useState } from "react"
+import axios, { all } from "axios"
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 export default function DoctorsPortal() {
-  return (
-    (
-    <Card className="border">
-      <><Navbar/></>
 
-      <CardHeader>
-        <CardTitle className="mb-4">Your Profile</CardTitle>
-        <CardContent className="border p-4">
-          <div className="flex items-center gap-4">
-            <img
-              alt="Your Avatar"
-              className="rounded-full"
-              height="48"
-              src={DoctorImage1}
-              style={{
-                aspectRatio: "48/48",
-                objectFit: "cover",
-              }}
-              width="48" />
-            <div>
-              <div className="font-semibold text-lg">Dr. John Doe</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">Cardiologist</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">General Hospital</div>
-            </div>
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+
+
+ 
+
+
+
+
+
+  const {user,loading,setUser} = UserState();
+  const [time, setTime] = useState(false);
+  const[allAppt,setAllAppt]  = useState([])
+
+  useEffect(()=>{
+    if (!user) return;
+
+    const getAllAppt = async () => {
+      try {
+        const { data } = await axios.post("http://localhost:8080/api/appt/doctor", {
+          doctorId: user._id,
+        });
+
+        setAllAppt(data.allAppointment);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getAllAppt();
+
+    
+  },[user])
+
+
+  if (loading) {
+    return <div>Loading...</div>; // You can return a loading spinner here
+  }
+  
+  if (!user) {
+    return <div>No user found...</div>; // You can return a loading spinner here
+  }
+  
+  // return (
+  //   (
+  //   <Card className="border">
+  //     <><Navbar/></>
+
+  //     <CardHeader>
+  //       <CardTitle className="mb-4">Your Profile</CardTitle>
+  //       <CardContent className="border p-4">
+  //         <div className="flex items-center gap-4">
+  //           <img
+  //             alt="Your Avatar"
+  //             className="rounded-full"
+  //             height="48"
+  //             src={user.photo}
+  //             style={{
+  //               aspectRatio: "48/48",
+  //               objectFit: "cover",
+  //             }}
+  //             width="48" />
+  //           <div>
+  //             <div className="font-semibold text-lg">{user.name}</div>
+  //             <div className="text-sm text-gray-500 dark:text-gray-400">{user.specialty}</div>
+  //             <div className="text-sm text-gray-500 dark:text-gray-400">Experience : {user.experience}</div>
+  //           </div>
+  //         </div>
+  //       </CardContent>
+  //     </CardHeader>
+  //     <CardHeader>
+  //       <CardTitle>Appointments</CardTitle>
+  //       <CardDescription>
+  //         View and manage appointment requests. Also mention the problem of the patient.
+  //       </CardDescription>
+  //     </CardHeader>
+  //     <CardContent className="flex flex-col gap-4">
+  //       <div className="flex flex-col gap-3">
+  //         <div className="grid gap-1 text-sm md:grid-cols-4 xl:grid-cols-5">
+  //           <div className="font-semibold">Patients</div>
+  //           <div className="font-semibold">Status</div>
+  //           <div className="font-semibold">Time</div>
+  //           <div className="font-semibold">Actions</div>
+  //           <div className="font-semibold">Problem</div>
+  //         </div>
+  //         <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-5">
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <img
+  //               alt="Avatar"
+  //               className="rounded-full"
+  //               height="32"
+  //               src= {PateintImage1}
+  //               style={{
+  //                 aspectRatio: "32/32",
+  //                 objectFit: "cover",
+  //               }}
+  //               width="32" />
+  //             <div className="font-semibold">Alice Johnson</div>
+  //           </div>
+  //           <div className="text-sm">Pending</div>
+  //           <div className="text-sm">10:00 AM</div>
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <Button className = "bg-purple-600" size="sm">Accept</Button>
+  //             <Button size="sm" variant="outline">
+  //               Decline
+  //             </Button>
+  //           </div>
+  //           <div className="text-sm">Headache</div>
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <img
+  //               alt="Avatar"
+  //               className="rounded-full"
+  //               height="32"
+  //               src={PateintImage2}
+  //               style={{
+  //                 aspectRatio: "32/32",
+  //                 objectFit: "cover",
+  //               }}
+  //               width="32" />
+  //             <div className="font-semibold">Bob Smith</div>
+  //           </div>
+  //           <div className="text-sm">Accepted</div>
+  //           <div className="text-sm">10:30 AM</div>
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <Button className = "bg-purple-600" size="sm">Accept</Button>
+  //             <Button size="sm" variant="outline">
+  //               Decline
+  //             </Button>
+  //           </div>
+  //           <div className="text-sm">Fever</div>
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <img
+  //               alt="Avatar"
+  //               className="rounded-full"
+  //               height="32"
+  //               src={PateintImage3}
+  //               style={{
+  //                 aspectRatio: "32/32",
+  //                 objectFit: "cover",
+  //               }}
+  //               width="32" />
+  //             <div className="font-semibold">Ella Martinez</div>
+  //           </div>
+  //           <div className="text-sm">Declined</div>
+  //           <div className="text-sm">11:00 AM</div>
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <Button className = "bg-purple-600" size="sm">Accept</Button>
+  //             <Button size="sm" variant="outline">
+  //               Decline
+  //             </Button>
+  //           </div>
+  //           <div className="text-sm">Cough</div>
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <img
+  //               alt="Avatar"
+  //               className="rounded-full"
+  //               height="32"
+  //               src={PateintImage4}
+  //               style={{
+  //                 aspectRatio: "32/32",
+  //                 objectFit: "cover",
+  //               }}
+  //               width="32" />
+  //             <div className="font-semibold">John Doe</div>
+  //           </div>
+  //           <div className="text-sm">Pending</div>
+  //           <div className="text-sm">11:00 AM</div>
+  //           <div className="flex items-center gap-2 text-sm">
+  //             <Button className = "bg-purple-600" size="sm">Accept</Button>
+  //             <Button size="sm" variant="outline">
+  //               Decline
+  //             </Button>
+  //           </div>
+  //           <div className="text-sm">Hypertension</div>
+  //         </div>
+  //       </div>
+  //     </CardContent>
+  //   </Card>)
+  // );
+
+  return (
+   <>
+    <Card className="border">
+         <><Navbar/></>
+
+     <CardHeader>
+       <CardTitle className="mb-4">Your Profile</CardTitle>
+       <CardContent className="border p-4">
+         <div className="flex items-center gap-4">
+           <img
+             alt="Your Avatar"
+             className="rounded-full"
+             height="48"
+             src={user.photo}
+             style={{
+               aspectRatio: "48/48",
+               objectFit: "cover",
+             }}
+            width="48" />
+           <div>
+             <div className="font-semibold text-lg">{user.name}</div>
+             <div className="text-sm text-gray-500 dark:text-gray-400">{user.specialty}</div>
+             <div className="text-sm text-gray-500 dark:text-gray-400">Experience : {user.experience}</div>
           </div>
-        </CardContent>
-      </CardHeader>
-      <CardHeader>
-        <CardTitle>Appointments</CardTitle>
-        <CardDescription>
-          View and manage appointment requests. Also mention the problem of the patient.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3">
-          <div className="grid gap-1 text-sm md:grid-cols-4 xl:grid-cols-5">
-            <div className="font-semibold">Patients</div>
-            <div className="font-semibold">Status</div>
-            <div className="font-semibold">Time</div>
-            <div className="font-semibold">Actions</div>
-            <div className="font-semibold">Problem</div>
-          </div>
-          <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-5">
-            <div className="flex items-center gap-2 text-sm">
-              <img
-                alt="Avatar"
-                className="rounded-full"
-                height="32"
-                src= {PateintImage1}
-                style={{
-                  aspectRatio: "32/32",
-                  objectFit: "cover",
-                }}
-                width="32" />
-              <div className="font-semibold">Alice Johnson</div>
-            </div>
-            <div className="text-sm">Pending</div>
-            <div className="text-sm">10:00 AM</div>
-            <div className="flex items-center gap-2 text-sm">
-              <Button className = "bg-purple-600" size="sm">Accept</Button>
-              <Button size="sm" variant="outline">
-                Decline
-              </Button>
-            </div>
-            <div className="text-sm">Headache</div>
-            <div className="flex items-center gap-2 text-sm">
-              <img
-                alt="Avatar"
-                className="rounded-full"
-                height="32"
-                src={PateintImage2}
-                style={{
-                  aspectRatio: "32/32",
-                  objectFit: "cover",
-                }}
-                width="32" />
-              <div className="font-semibold">Bob Smith</div>
-            </div>
-            <div className="text-sm">Accepted</div>
-            <div className="text-sm">10:30 AM</div>
-            <div className="flex items-center gap-2 text-sm">
-              <Button className = "bg-purple-600" size="sm">Accept</Button>
-              <Button size="sm" variant="outline">
-                Decline
-              </Button>
-            </div>
-            <div className="text-sm">Fever</div>
-            <div className="flex items-center gap-2 text-sm">
-              <img
-                alt="Avatar"
-                className="rounded-full"
-                height="32"
-                src={PateintImage3}
-                style={{
-                  aspectRatio: "32/32",
-                  objectFit: "cover",
-                }}
-                width="32" />
-              <div className="font-semibold">Ella Martinez</div>
-            </div>
-            <div className="text-sm">Declined</div>
-            <div className="text-sm">11:00 AM</div>
-            <div className="flex items-center gap-2 text-sm">
-              <Button className = "bg-purple-600" size="sm">Accept</Button>
-              <Button size="sm" variant="outline">
-                Decline
-              </Button>
-            </div>
-            <div className="text-sm">Cough</div>
-            <div className="flex items-center gap-2 text-sm">
-              <img
-                alt="Avatar"
-                className="rounded-full"
-                height="32"
-                src={PateintImage4}
-                style={{
-                  aspectRatio: "32/32",
-                  objectFit: "cover",
-                }}
-                width="32" />
-              <div className="font-semibold">John Doe</div>
-            </div>
-            <div className="text-sm">Pending</div>
-            <div className="text-sm">11:00 AM</div>
-            <div className="flex items-center gap-2 text-sm">
-              <Button className = "bg-purple-600" size="sm">Accept</Button>
-              <Button size="sm" variant="outline">
-                Decline
-              </Button>
-            </div>
-            <div className="text-sm">Hypertension</div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>)
+         </div>
+       </CardContent>
+     </CardHeader>
+     <CardHeader>
+      <CardTitle>Appointments</CardTitle>
+       <CardDescription>
+         View and manage appointment requests. Also mention the problem of the patient.
+       </CardDescription>
+     </CardHeader>
+      </Card>
+
+
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Patient</StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
+            <StyledTableCell align="right">Time</StyledTableCell>
+            <StyledTableCell align="right">Action</StyledTableCell>
+            <StyledTableCell align="right">Problem</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {allAppt.map((row) => (
+            <StyledTableRow key={row._id}>
+              <StyledTableCell component="th" scope="row">
+                {row.patientId.name}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.status}</StyledTableCell>
+              <StyledTableCell align="right">Time</StyledTableCell>
+              <StyledTableCell align="right">
+                <button>Test</button>
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.patientId.medicalHistory}</StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </>
   );
 }
 
 
-/*
-<IconButton variant="text" >
-          <svg class="h-4 w-4 text-purple-600"xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
-</svg></IconButton> 
-Logout Button
-*/
