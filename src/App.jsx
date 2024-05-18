@@ -8,8 +8,9 @@ from "react-router-dom";
 import LoginPage from './pages/Login';
 import SignupPage from './pages/SignUp';
 import LandingPage from './pages/LandingPage'
-import PatientsPage from './pages/PatientsPortal'
-import DoctorPage from './pages/DoctorsPortal'
+import PatientsPortal from './pages/PatientsPortal'
+import DoctorDashboard from './pages/DoctorsDashboard'
+import PatientsDashboard from './pages/PatientsDashboard';
 
 
 
@@ -21,9 +22,9 @@ function App() {
             <Route path="/login" element={<LoginPage/>} />
             <Route path="/signup" element={<SignupPage/>} />
             <Route path="/" element={<LandingPage/>} />
-            <Route path="/patientspage" element={<PatientsPage/>} />
-            <Route path="/doctorspage" element={<DoctorPage/>} />
-                     
+            <Route path="/patientsportal" element={<PatientsPortal/>} />
+            <Route path="/doctorsdashboard" element={<DoctorDashboard/>} />
+            <Route path="/patientsdashboard" element={<PatientsDashboard/>} />         
         </Routes>
       </BrowserRouter>
     </div>
