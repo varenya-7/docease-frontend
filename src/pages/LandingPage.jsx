@@ -9,12 +9,16 @@ import Navbar from '../components/auth/Navbar'
 import BenefitsLogo from '../assets/benefits.jpeg'
 import FeatureLogo from '../assets/features.jpeg'
 import { useNavigate  } from 'react-router-dom'
+import { UserState } from '@/context/UserProvider'
 
 
 export default function Component() {
   const navigate = useNavigate();
+
+  
+
   return (
-    (<div className="flex flex-col min-h-[100vh]">
+    <div className="flex flex-col min-h-[100vh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
        <><Navbar/></>
       </header>
@@ -166,7 +170,7 @@ export default function Component() {
           </Link>
         </nav>
       </footer>
-    </div>)
+    </div>
   );
 }
 
