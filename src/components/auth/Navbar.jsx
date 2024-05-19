@@ -18,7 +18,10 @@ export default function NavbarDark() {
   };
 
   const navigateToProfile = () => {
+    if(user.role == 'patient')
     navigate('/patientspage');
+  else
+  navigate('/doctorspage');
   };
 
   return (

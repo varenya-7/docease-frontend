@@ -40,7 +40,7 @@ export default function Component() {
                 // Render symptom input and search button if user is logged in
                 <form className="flex space-x-2">
                   <Input className="max-w-lg flex-1" placeholder="Enter your symptoms" type="text" />
-                  <Button className="bg-purple-600" type="submit" onClick={() => navigate("/")}>Search</Button>
+                  <Button className="bg-purple-600" type="submit" onClick={() => navigate("/doctorsview")}>Search</Button>
                 </form>
               ) : (
                 // Render login and signup buttons if user is not logged in
@@ -74,7 +74,7 @@ export default function Component() {
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Link
                   className="inline-flex h-10 items-center justify-center rounded-md bg-purple-600 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                  to="/patientspage"
+                  to="/doctorsview"
                   >
                   Book Appointment
                 </Link>
