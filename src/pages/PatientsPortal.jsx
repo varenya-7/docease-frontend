@@ -10,8 +10,21 @@ import DoctorImage1 from "../assets/doctor-1.jpg"
 import DoctorImage5 from "../assets/doctor-5.png"
 import DoctorImage4 from "../assets/doctor-4.jpg"
 import PatientImage1 from"../assets/patient-image-1.jpg"
+import { useNavigate } from "react-router-dom"
+import { UserState } from "@/context/UserProvider"
 
 export default function PatientPortal() {
+   
+  // const navigate = useNavigate();
+  // const { setUser } = UserState();
+
+  // const logout = () => {
+  //   localStorage.clear();
+  //   setUser(null);
+  //   navigate('/login');
+  // };
+
+
   return (
     <Card className="border">
         <><Navbar/></>
@@ -146,9 +159,9 @@ export default function PatientPortal() {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
-        <Button className="ml-auto bg-purple-600">Logout</Button>
-      </CardFooter>
+      {/* <CardFooter>
+        <Button className="ml-auto bg-purple-600" onClick={logout}>Logout</Button>
+      </CardFooter> */}
     </Card>
   );
 }
