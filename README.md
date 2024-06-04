@@ -2,8 +2,11 @@
 
 **https://docease-frontend-sqy8.vercel.app/**
 
-**Demo Login**  
+**Demo Patient Login**  
 - **Username**: `vs@gmail.com`  
+- **Password**: `12345`
+**Demo Doctor Login**  
+- **Username**: `padamsinha3@gmail.com`  
 - **Password**: `12345`  
 
 Welcome to Doease, a cutting-edge platform designed to revolutionize healthcare consultations. By harnessing the power of the MERN stack (MongoDB, Express.js, React, Node.js) and ZEGOcloud API, Doease ensures seamless, round-the-clock access to top-tier medical professionals through real-time video and voice consultations.
